@@ -2,6 +2,7 @@ import sys
 from shapes import square
 from shapes import triangle
 from shapes import pentagon
+from shapes import hexagon
 
 def parse_input(args):
     shape = args[1]
@@ -10,12 +11,12 @@ def parse_input(args):
     halves = int(args[4])
     unique = args[5]
 
-    if not((shape == 'triangle' or shape == 'square' or shape == 'pentagon') and
+    if not((shape == 'triangle' or shape == 'square' or shape == 'pentagon' or shape == 'hexagon') and
            (points > 1) and
            (refresh >= 1) and
            (halves >= 1) and
            (unique == 'yes' or unique == 'no')):
-           print ("To use this program: python chaos.py <shape, triangle/square/pentagon> <points, int> <refesh rate, int> <halves, int> <no repeats, yes/no>")
+           print ("To use this program: python chaos.py <shape, triangle/square/pentagon/hexagon> <points, int> <refesh rate, int> <halves, int> <no repeats, yes/no>")
            sys.exit()
     
     if (unique == 'yes'):
@@ -34,6 +35,9 @@ def make_pattern(shape, points, refresh, halves, unique):
         shape.draw()
     if (shape == 'pentagon'):
         shape = pentagon.Pentagon(points, refresh, halves, unique)
+        shape.draw()
+    if (shape == 'hexagon'):
+        shape = hexagon.Hexagon(points, refresh, halves, unique)
         shape.draw()
 
 def main():
