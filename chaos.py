@@ -4,20 +4,17 @@ from shapes import triangle
 from shapes import pentagon
 from shapes import hexagon
 from shapes import star
+from shapes import bowtie
 
 def parse_input(args):
     shape = args[1]
-    points = int(args[2])
-    refresh = int(args[3])
-    halves = int(args[4])
-    unique = args[5]
+    halves = int(args[2])
+    unique = args[3]
 
-    if not((shape == 'triangle' or shape == 'square' or shape == 'pentagon' or shape == 'hexagon' or shape == 'star') and
-           (points > 1) and
-           (refresh >= 1) and
+    if not((shape == 'triangle' or shape == 'square' or shape == 'pentagon' or shape == 'hexagon' or shape == 'star' or shape == 'bowtie') and
            (halves >= 1) and
            (unique == 'yes' or unique == 'no')):
-           print ("To use this program: python chaos.py <shape, triangle/square/pentagon/hexagon/star> <points, int> <refesh rate, int> <halves, int> <no repeats, yes/no>")
+           print ("To use this program: python chaos.py <shape, triangle/square/pentagon/hexagon/star/bowtie> <halves, int> <no repeats, yes/no>")
            sys.exit()
     
     if (unique == 'yes'):
@@ -25,7 +22,7 @@ def parse_input(args):
     else:
         unique = False
 
-    return shape, points, refresh, halves, unique
+    return shape, halves, unique
 
 def make_pattern(shape, points, refresh, halves, unique):
     if (shape == 'triangle'):
@@ -43,12 +40,17 @@ def make_pattern(shape, points, refresh, halves, unique):
     if (shape == 'star'):
         shape = star.Star(points, refresh, halves, unique)
         shape.draw()
+    if (shape == 'bowtie'):
+        shape = bowtie.Bowtie(points, refresh, halves, unique)
+        shape.draw()
 
 def main():
     args = sys.argv
+    points = 25000
+    refresh = 5000
     
     try:
-        shape, points, refresh, halves, unique = parse_input(args)
+        shape, halves, unique = parse_input(args)
         make_pattern(shape, points, refresh, halves, unique)
     except Exception, e:
         print str(e)
